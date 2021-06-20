@@ -1,0 +1,24 @@
+{
+  "name": "react-chat-backend",
+  "version": "1.0.0",
+  "description": "React Chat Back-end",
+  "author": {
+    "name": "Shant Sargsyan",
+    "email": "shant.asf@gmail.com",
+    "url": "https://www.linkedin.com/in/shant-sargsyan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shant24/react-chat-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shant24/react-chat-backend/issues"
+  },
+  "homepage": "https://github.com/Shant24/react-chat-backend#readme",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC"
+}
