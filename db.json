@@ -407,6 +407,7 @@
   "messages": [
     {
       "_id": "a7938aee-7ce0-407e-8904-3f1382528331",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Shant Sargsyan"
       },
@@ -418,6 +419,7 @@
     },
     {
       "_id": "e8a65dd9-da22-4943-95a0-37be064cdba9",
+      "roomId": "47f76d9c-81a8-4e4d-943a-4c0e7a718b00",
       "user": {
         "fullName": "Shant Sargsyan"
       },
@@ -429,6 +431,7 @@
     },
     {
       "_id": "9d81de7a-07f4-4949-a21e-50965f4854fa",
+      "roomId": "47f76d9c-81a8-4e4d-943a-4c0e7a718b00",
       "user": {
         "fullName": "Patsy Craig"
       },
@@ -440,6 +443,7 @@
     },
     {
       "_id": "5875bb40-229d-4c60-8d23-f619f7423db4",
+      "roomId": "8eddd95b-91e0-4aa9-8f68-840c3e54bea2",
       "user": {
         "fullName": "Bass Warren"
       },
@@ -451,6 +455,7 @@
     },
     {
       "_id": "b1f15125-139e-4f51-afaf-df4bd74cbe98",
+      "roomId": "47f76d9c-81a8-4e4d-943a-4c0e7a718b00",
       "user": {
         "fullName": "Lily Ayala"
       },
@@ -462,6 +467,7 @@
     },
     {
       "_id": "a60491dd-c9e5-4b46-9f7f-cac7e33900b3",
+      "roomId": "88cffc4c-bc5b-4b3e-9308-4ece766c7f1e",
       "user": {
         "fullName": "Monica Landry"
       },
@@ -473,6 +479,7 @@
     },
     {
       "_id": "20519b16-fa7d-491f-aa42-42547c35601e",
+      "roomId": "88cffc4c-bc5b-4b3e-9308-4ece766c7f1e",
       "user": {
         "fullName": "Stokes Stokes"
       },
@@ -484,6 +491,7 @@
     },
     {
       "_id": "046b6123-efe0-41e2-8877-3f7576d6b6f7",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Simmons Cline"
       },
@@ -495,6 +503,7 @@
     },
     {
       "_id": "0d322b56-5110-4b24-8889-701e77845123",
+      "roomId": "8eddd95b-91e0-4aa9-8f68-840c3e54bea2",
       "user": {
         "fullName": "Webb Gilmore"
       },
@@ -506,6 +515,7 @@
     },
     {
       "_id": "ac5734c0-3864-4fd3-ad59-2c6e7c37e5a5",
+      "roomId": "8eddd95b-91e0-4aa9-8f68-840c3e54bea2",
       "user": {
         "fullName": "Joni Mcmahon"
       },
@@ -517,6 +527,7 @@
     },
     {
       "_id": "8529e239-76b7-4b9c-a49d-c3be63a6ec4d",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Tommie Walsh"
       },
@@ -528,6 +539,7 @@
     },
     {
       "_id": "c3063520-2276-46c0-b5ad-4c28c3e14471",
+      "roomId": "88cffc4c-bc5b-4b3e-9308-4ece766c7f1e",
       "user": {
         "fullName": "Teresa Bryant"
       },
@@ -539,6 +551,7 @@
     },
     {
       "_id": "5203d0ab-10c1-4b3c-a676-f573924dc101",
+      "roomId": "8eddd95b-91e0-4aa9-8f68-840c3e54bea2",
       "user": {
         "fullName": "Bianca Workman"
       },
@@ -550,6 +563,7 @@
     },
     {
       "_id": "80de35f7-b939-45be-ba47-2aa7a4b49c80",
+      "roomId": "88cffc4c-bc5b-4b3e-9308-4ece766c7f1e",
       "user": {
         "fullName": "Harding Goodman"
       },
@@ -561,6 +575,7 @@
     },
     {
       "_id": "29f2ab80-dea3-4129-ba55-8b9d14975abb",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Holcomb Daniel"
       },
@@ -572,6 +587,7 @@
     },
     {
       "_id": "09344184-2467-4f84-9c06-aeeb8f171861",
+      "roomId": "8eddd95b-91e0-4aa9-8f68-840c3e54bea2",
       "user": {
         "fullName": "Serena Page"
       },
@@ -583,6 +599,7 @@
     },
     {
       "_id": "c5a2b72b-beff-4e4f-a37f-25ac8a816d75",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Maxine Brennan"
       },
@@ -594,6 +611,7 @@
     },
     {
       "_id": "ea7b7a2b-83de-4c57-8763-1da1d9dfb5ae",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Small Zamora"
       },
@@ -605,6 +623,7 @@
     },
     {
       "_id": "67615b1b-afb3-403c-b765-51922bf1fd71",
+      "roomId": "88cffc4c-bc5b-4b3e-9308-4ece766c7f1e",
       "user": {
         "fullName": "Leblanc Dickson"
       },
@@ -616,6 +635,7 @@
     },
     {
       "_id": "e86761bd-9fbd-4a24-9806-ea6cb2551bed",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Marquez Sargent"
       },
@@ -627,6 +647,7 @@
     },
     {
       "_id": "eafdfe41-84a8-46aa-850c-d28a57785690",
+      "roomId": "b1c5285e-93b0-48a2-86fd-af5c848acdfc",
       "user": {
         "fullName": "Christensen Cooke"
       },
@@ -638,6 +659,7 @@
     },
     {
       "_id": "467f51b6-e6e8-43d2-9e69-b765a1f483a8",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
       "user": {
         "fullName": "Mcintosh Beck"
       },
