@@ -7,7 +7,7 @@ const db = require('./db.json');
 const app = express();
 
 const PORT = process.env.PORT || 8080;
-const HOST_URL = process.env.HOST_URL || 'http://localhost';
+const HOST_URL = process.env.CURRENT_HOST_URL || 'http://localhost';
 const environment = process.env.NODE_ENV || 'development';
 
 app.use(express.json());
