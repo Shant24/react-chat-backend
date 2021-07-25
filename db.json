@@ -418,6 +418,18 @@
       "isRead": true
     },
     {
+      "_id": "14c79724-b3c3-4e72-ae4f-e7809bda3cc4",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
+      "user": {
+        "fullName": "Shant Sargsyan"
+      },
+      "avatar": "https://sun9-35.userapi.com/impg/K69YE9VC_S6AFwWCCtRDB9IwAiJz0XzbE5775Q/uj40Jf8s4QQ.jpg?size=811x1080&quality=96&sign=e6080edccb338df031fbe572fc57218c&type=album",
+      "date": "2021-06-20T16:34:01.594Z",
+      "audio": "https://notificationsounds.com/storage/sounds/file-sounds-1208-message-with-intro.mp3",
+      "isMe": false,
+      "isRead": true
+    },
+    {
       "_id": "e8a65dd9-da22-4943-95a0-37be064cdba9",
       "roomId": "47f76d9c-81a8-4e4d-943a-4c0e7a718b00",
       "user": {
@@ -496,10 +508,28 @@
         "fullName": "Simmons Cline"
       },
       "text": "eiusmod est aliquip laborum labore mollit est in irure pariatur nulla esse non reprehenderit pariatur sunt nisi dolor duis ut do velit ut amet exercitation exercitation enim aliquip pariatur laborum duis commodo laborum occaecat consectetur irure aliqua esse culpa velit nostrud sit voluptate incididunt est laboris cupidatat esse tempor eu est tempor consectetur nulla fugiat reprehenderit fugiat culpa esse eiusmod deserunt",
+      "attachments": [
+        {
+          "filename": "image10",
+          "url": "https://source.unsplash.com/500x500/?random=10&nature,water"
+        }
+      ],
       "avatar": "https://source.unsplash.com/1600x900/?random=96.33&girl,guy",
       "date": "1974-08-13T06:19:21.286Z",
       "isMe": true,
       "isRead": false
+    },
+    {
+      "_id": "4f38e2e4-4f5f-47bd-a7fe-ef2957682009",
+      "roomId": "ab73d508-4097-45cd-adaf-3e80e61f69d4",
+      "user": {
+        "fullName": "Simmons Cline"
+      },
+      "avatar": "https://source.unsplash.com/1600x900/?random=96.33&girl,guy",
+      "date": "2021-07-24T20:23:37.013Z",
+      "isMe": false,
+      "isRead": false,
+      "isTyping": true
     },
     {
       "_id": "0d322b56-5110-4b24-8889-701e77845123",
@@ -616,6 +646,24 @@
         "fullName": "Small Zamora"
       },
       "text": "sunt Lorem officia irure fugiat nostrud nostrud Lorem sit nisi ea dolore aute velit voluptate deserunt id excepteur deserunt nulla incididunt exercitation ut sint veniam et voluptate proident labore exercitation irure in ullamco sint aliquip aute exercitation occaecat eu elit minim laboris sunt cupidatat eiusmod cillum laborum ex eiusmod veniam tempor ipsum eu aute cillum eiusmod labore cillum labore eu irure veniam elit do exercitation aliqua id officia in ea velit do excepteur dolore mollit esse laborum quis duis cupidatat nostrud adipisicing ut magna occaecat enim eiusmod mollit excepteur veniam sint mollit irure ex fugiat excepteur id nulla magna ex",
+      "attachments": [
+        {
+          "filename": "image9",
+          "url": "https://source.unsplash.com/500x500/?random=9&nature,water"
+        },
+        {
+          "filename": "image8",
+          "url": "https://source.unsplash.com/500x500/?random=8&nature,water"
+        },
+        {
+          "filename": "image7",
+          "url": "https://source.unsplash.com/500x500/?random=7&nature,water"
+        },
+        {
+          "filename": "image6",
+          "url": "https://source.unsplash.com/500x500/?random=6&nature,water"
+        }
+      ],
       "avatar": "https://source.unsplash.com/1600x900/?random=60.83&girl,guy",
       "date": "2021-04-05T12:16:02.606Z",
       "isMe": true,
