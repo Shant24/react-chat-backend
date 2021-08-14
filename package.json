@@ -16,12 +16,15 @@
   },
   "homepage": "https://github.com/Shant24/react-chat-backend#readme",
   "private": true,
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "prod": "pm2 start 'cross-env NODE_ENV=production node src/index.js' --name chat-back",
-    "start": "cross-env NODE_ENV=production node src/index.js",
-    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
-    "json": "json-server --watch src/db.json --port 7777"
+    "prod": "pm2 start 'cross-env NODE_ENV=production node dist/index.ts' --name chat-back",
+    "start": "cross-env NODE_ENV=production npm run build:live",
+    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "dev": "cross-env NODE_ENV=development npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts",
+    "json": "json-server --watch db.json --port 7777"
   },
   "license": "ISC",
   "dependencies": {
@@ -43,7 +46,8 @@
     "@types/node": "^16.4.10",
     "@types/uuid": "^8.3.1",
     "json-server": "^0.16.3",
-    "nodemon": "^2.0.9",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
   }
 }
