@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import { UserModel } from '../schemas';
-import { IUser } from '../types/User';
+import { IUser } from '../types/user';
+import { UserModel } from '../models';
 import generateUserConfirmationToken from '../helpers/hash/userConfirmHash';
 import { parseCreatingUserErrors } from '../helpers/errors/parsErrors';
 
@@ -10,7 +10,7 @@ class UserController {
     UserModel.find()
       .then((users: IUser[] | null) => {
         if (!users) {
-          return res.status(404).json({ error: { message: 'User not found!' } });
+          return res.status(404).json({ error: { message: 'Users not found!' } });
         }
 
         res.status(200).json(users);
@@ -36,16 +36,11 @@ class UserController {
       });
   }
 
-  // getMe(req: Request, res: Response) {
-  //   // TODO: create return my information (authentication)
-  // }
-
   create(req: Request, res: Response) {
     const { user }: { user: Partial<IUser> } = req.body;
 
     if (!user) {
-      res.status(400).send();
-      return;
+      return res.status(400).json({ error: { message: 'Bad request!' } });
     }
 
     const { email, fullName, avatar, password } = user;
@@ -59,11 +54,20 @@ class UserController {
     });
 
     newUser.save()
-      .then((value: any) => {
-        console.log('User created');
-        if (value) {
-          res.status(201).json(value);
+      .then((value: IUser) => {
+        if (!value) {
+          return res.status(404).json({ error: { message: 'User not found!' } });
         }
+
+        console.log('User created');
+        res.status(201).json({
+          email: value.email,
+          fullName: value.fullName,
+          avatar: value.avatar,
+          lastSeen: value.lastSeen,
+          createdAt: value.createdAt,
+          updatedAt: value.updatedAt,
+        });
       })
       .catch((e) => {
         const errMessage = parseCreatingUserErrors(e);

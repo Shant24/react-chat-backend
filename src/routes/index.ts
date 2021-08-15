@@ -1,7 +1,9 @@
 import { Express, Request, Response } from 'express';
 import axios, { AxiosResponse } from 'axios';
 
-const userRoutes = require('./user.routes');
+import UserRoutes from './User.routes';
+import ConversationRoutes from './Conversation.routes';
+import MessageRoutes from './Message.routes';
 
 const PORT = process.env.PORT || 8080;
 const HOST_URL = process.env.CURRENT_HOST_URL;
@@ -15,7 +17,9 @@ const fetchDB = async () => {
 
 const routes = {
   init: (app: Express) => {
-    app.use(`/user`, userRoutes);
+    app.use(`/user`, UserRoutes);
+    app.use(`/conversation`, ConversationRoutes);
+    app.use(`/message`, MessageRoutes);
 
     app.get('/', async (req: Request, res: Response) => {
       const db = await fetchDB();
