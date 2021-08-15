@@ -14,6 +14,7 @@ dotenv.config();
 const PORT = process.env.PORT || 8080;
 const HOST_URL = process.env.CURRENT_HOST_URL;
 const environment = process.env.NODE_ENV || 'development';
+const MONGO_URL = process.env.MONGO_URL || '';
 
 app.use(express.json());
 app.use(cors({ origin: '*', credentials: true }));
@@ -68,7 +69,7 @@ app.listen(PORT, () => {
   console.log(`Link: ${HOST_URL}:${PORT}`);
 
   mongoose
-    .connect('mongodb://localhost:27017/react-chat', {
+    .connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
