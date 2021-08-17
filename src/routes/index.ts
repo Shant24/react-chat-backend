@@ -1,12 +1,15 @@
 import { Express, Request, Response } from 'express';
 import axios, { AxiosResponse } from 'axios';
+import * as dotenv from 'dotenv';
 
 import UserRoutes from './User.routes';
 import ConversationRoutes from './Conversation.routes';
 import MessageRoutes from './Message.routes';
 
+dotenv.config({ path: __dirname + '/../../.env' });
+
 const PORT = process.env.PORT || 8080;
-const HOST_URL = process.env.CURRENT_HOST_URL;
+const HOST_URL = process.env.CURRENT_HOST_URL || '';
 const environment = process.env.NODE_ENV || 'development';
 
 const fetchDB = async () => {

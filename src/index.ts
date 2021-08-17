@@ -2,15 +2,15 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import logger from 'morgan';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 import routes from './routes';
 
 const app = express();
-dotenv.config();
+dotenv.config({ path: __dirname + '/../.env' });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 7777;
 const HOST_URL = process.env.CURRENT_HOST_URL;
 const environment = process.env.NODE_ENV || 'development';
 const MONGO_URL = process.env.MONGO_URL || '';
