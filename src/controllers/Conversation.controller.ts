@@ -7,7 +7,7 @@ import { getUniqueIdFromIds } from '../helpers/unique';
 class ConversationController {
   getAll(req: Request, res: Response) {
     // TODO: take userId fro JWT Token
-    const authUserId: string = '61192146ceb5613aabfc91e9';
+    const authUserId: string = '611af638b80661134cd680fb';
 
     ConversationModel.find({ participants: authUserId })
       .populate('participants', 'fullName avatar lastSeen')
@@ -29,9 +29,11 @@ class ConversationController {
     const { id } = req.params;
 
     // TODO: take userId fro JWT Token
-    const userId: string = '61192146ceb5613aabfc91e9';
+    const userId: string = '611af638b80661134cd680fb';
 
-    ConversationModel.findById({ participants: userId, id })
+    ConversationModel.findOne({ _id: id, participants: userId })
+      .populate('participants', 'fullName avatar lastSeen')
+      .populate('lastMessage', 'user text audio attachments isRead isTyping createdAt')
       .then((conversation: IConversation | null) => {
         if (!conversation) {
           return res.status(404).json({ error: { message: 'Conversation not found!' } });
@@ -69,7 +71,7 @@ class ConversationController {
     newConversation.save()
       .then((value: IConversation) => {
         value
-          .populate('participants', 'fullName avatar, lastSeen')
+          .populate('participants', 'fullName avatar lastSeen')
           .execPopulate((err, populatedConversation) => {
             if (err) {
               return res.status(400).json({ error: { message: 'Bad request!' } });
