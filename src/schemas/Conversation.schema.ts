@@ -4,7 +4,7 @@ const ConversationSchema = new Schema(
   {
     uniqueId: {
       type: String,
-      unique: true,
+      unique: [true, 'This conversation already exists!'],
       required: [true, 'UniqueId is required!'],
     },
 

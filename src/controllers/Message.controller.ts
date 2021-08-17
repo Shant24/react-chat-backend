@@ -53,21 +53,23 @@ class MessageController {
 
     newMessage.save()
       .then((value: IMessage) => {
-        value.populate('user', 'fullName avatar').execPopulate(async (err, populatedMessage) => {
-          if (err) {
-            return res.status(404).json({ error: { message: 'Something went wrong!' } });
-          }
+        value
+          .populate('user', 'fullName avatar')
+          .execPopulate(async (err, populatedMessage) => {
+            if (err) {
+              return res.status(404).json({ error: { message: 'Something went wrong!' } });
+            }
 
-          if (!populatedMessage) {
-            return res.status(404).json({ error: { message: 'Message not found!' } });
-          }
+            if (!populatedMessage) {
+              return res.status(404).json({ error: { message: 'Message not found!' } });
+            }
 
-          await ConversationModel
-            .updateOne({ _id: cId }, { lastMessage: populatedMessage._id }, { runValidators: true });
+            await ConversationModel
+              .updateOne({ _id: cId }, { lastMessage: populatedMessage._id }, { runValidators: true });
 
-          console.log('Message created');
-          res.status(201).json(populatedMessage);
-        });
+            console.log('Message created');
+            res.status(201).json(populatedMessage);
+          });
       })
       .catch((err) => {
         res.status(400).json({ error: err.message });
@@ -83,7 +85,31 @@ class MessageController {
           return res.status(404).json({ error: { message: 'Message not found!' } });
         }
 
-        res.status(200).json({ message: `Message removed!` });
+        MessageModel.find({ cId: message.cId })
+          .then(async (messages: IMessage[]) => {
+            console.log('messages', messages);
+            if (messages.length) {
+              await ConversationModel
+                .updateOne(
+                  { _id: message.cId },
+                  { lastMessage: messages[messages.length - 1]._id },
+                  { runValidators: true },
+                );
+              return;
+            }
+
+            await ConversationModel
+              .updateOne(
+                { _id: message.cId },
+                { lastMessage: undefined },
+              );
+          })
+          .catch((err) => {
+            res.status(400).json({ error: err.message });
+          })
+          .finally(() => {
+            res.status(200).json({ message: `Message removed!` });
+          });
       })
       .catch(() => {
         res.status(404).json({ error: { message: 'Something went wrong!' } });
