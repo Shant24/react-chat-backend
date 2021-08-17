@@ -2,9 +2,11 @@ import { Request, Response } from 'express';
 
 import { IConversation } from '../types/conversation';
 import { ConversationModel } from '../models';
+import { getUniqueIdFromIds } from '../helpers/unique';
 
 class ConversationController {
   getAll(req: Request, res: Response) {
+    // TODO: take userId fro JWT Token
     const authUserId: string = '61192146ceb5613aabfc91e9';
 
     ConversationModel.find({ participants: authUserId })
@@ -25,6 +27,8 @@ class ConversationController {
 
   getById(req: Request, res: Response) {
     const { id } = req.params;
+
+    // TODO: take userId fro JWT Token
     const userId: string = '61192146ceb5613aabfc91e9';
 
     ConversationModel.findById({ participants: userId, id })
@@ -40,59 +44,48 @@ class ConversationController {
       });
   }
 
-  async create(req: Request, res: Response) {
-    const { conversation }: { conversation: IConversation } = req.body;
+  create(req: Request, res: Response) {
+    const { conversation }: { conversation: { name: string; participants: string[]; } } = req.body;
 
-    if (!conversation) {
+    if (!conversation || !conversation.participants?.length) {
       return res.status(400).json({ error: { message: 'Bad request!' } });
     }
 
-    const { participants } = conversation;
+    const { name, participants } = conversation;
 
-    // TODO: adjust this functionality and add unique ConversationSchema participants
-    try {
-      await ConversationModel.find({ participants }).then((value) => {
-        if (value.length) {
-          throw { error: { message: 'This conversation already exists!' } };
-        }
-      }).catch((err) => {
-        throw err;
+    // TODO: take userId fro JWT Token
+    const meId = '611af638b80661134cd680fb';
+
+    const participantsArr: string[] = [meId, ...participants]
+
+    const uniqueId = getUniqueIdFromIds(participantsArr);
+
+    const newConversation = new ConversationModel({
+      uniqueId,
+      name,
+      participants: participantsArr,
+    });
+
+    newConversation.save()
+      .then((value: IConversation) => {
+        value
+          .populate('participants', 'fullName avatar, lastSeen')
+          .execPopulate((err, populatedConversation) => {
+            if (err) {
+              return res.status(400).json({ error: { message: 'Bad request!' } });
+            }
+
+            if (!populatedConversation) {
+              return res.status(404).json({ error: { message: 'Conversations not found!' } });
+            }
+
+            console.log('Conversation created');
+            res.status(201).json(populatedConversation);
+          });
+      })
+      .catch((e) => {
+        res.status(400).json({ error: { message: e.message } });
       });
-
-      await ConversationModel.find({ participants: participants.reverse() }).then((value) => {
-        if (value.length) {
-          throw { error: { message: 'This conversation already exists!' } };
-        }
-      }).catch((err) => {
-        throw err;
-      });
-
-      const newConversation = new ConversationModel({ participants });
-
-      newConversation.save()
-        .then((value: IConversation) => {
-          value
-            .populate('participants', 'fullName avatar, lastSeen')
-            .execPopulate((err, populatedConversation) => {
-              if (err) {
-                return res.status(400).json({ error: { message: 'Bad request!' } });
-              }
-
-              if (!populatedConversation) {
-                return res.status(404).json({ error: { message: 'Conversations not found!' } });
-              }
-
-              console.log('Conversation created');
-              res.status(201).json(populatedConversation);
-            });
-        })
-        .catch((e) => {
-          res.status(400).json({ error: { message: e.message } });
-        });
-
-    } catch (err) {
-      res.status(400).json(err);
-    }
   }
 
   delete(req: Request, res: Response) {
