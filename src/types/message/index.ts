@@ -1,4 +1,4 @@
-import { Document, ObjectId } from 'mongoose';
+import { Document } from 'mongoose';
 
 interface IAttachment {
   filename: string;
@@ -7,7 +7,7 @@ interface IAttachment {
 
 export interface IMessage extends Document<string> {
   cId: string;
-  user: ObjectId;
+  user: string;
   text?: string;
   audio?: string;
   attachments?: IAttachment[];

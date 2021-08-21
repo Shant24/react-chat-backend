@@ -20,24 +20,24 @@ app.use(cors({ origin: '*', credentials: true }));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose
-  .connect(MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log('MongoDB connected!');
-  })
-  .catch((err) => {
-    console.log('Error: ', err);
-  });
-
 routes.init(app);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
   console.log(`Environment: ${environment}`);
   console.log(`Link: ${HOST_URL}:${PORT}`);
+
+  mongoose
+    .connect(MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    })
+    .then(() => {
+      console.log('MongoDB connected!');
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 });
