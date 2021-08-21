@@ -11,7 +11,7 @@ const MessageSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'User id is required!'],
+      required: [true, 'User\'s id is required!'],
     },
 
     text: {
