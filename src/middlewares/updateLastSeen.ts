@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 
-import { CustomRequest } from '../types/express';
+import { CustomRequest } from '../types/packages/express';
 import { UserModel } from '../models';
 
 export default async (req: CustomRequest, res: Response, next: NextFunction) => {

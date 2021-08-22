@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { CustomRequest } from '../types/express';
+import { CustomRequest } from '../types/packages/express';
 import { IMessage } from '../types/message';
 import { ConversationModel, MessageModel } from '../models';
 

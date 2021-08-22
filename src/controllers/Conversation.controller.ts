@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { CustomRequest } from '../types/express';
+import { CustomRequest } from '../types/packages/express';
 import { IConversation } from '../types/conversation';
 import { ConversationModel } from '../models';
 import { getUniqueIdFromIds } from '../helpers/unique';

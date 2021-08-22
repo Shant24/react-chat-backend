@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 
-import { CustomRequest } from '../types/express';
+import { CustomRequest } from '../types/packages/express';
 import { IUser } from '../types/user';
 import { verifyJWToken } from '../utils';
 import { UserModel } from '../models';

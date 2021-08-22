@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 
-import { CustomRequest } from '../types/express';
+import { CustomRequest } from '../types/packages/express';
 import { IUser } from '../types/user';
 import { UserModel } from '../models';
 import { parseCreatingUserErrors } from '../helpers/errors/parsErrors';
