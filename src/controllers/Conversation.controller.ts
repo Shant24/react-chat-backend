@@ -1,15 +1,15 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
+import { CustomRequest } from '../types/express';
 import { IConversation } from '../types/conversation';
 import { ConversationModel } from '../models';
 import { getUniqueIdFromIds } from '../helpers/unique';
 
 class ConversationController {
-  getAll(req: Request, res: Response) {
-    // TODO: take userId fro JWT Token
-    const authUserId: string = '611af638b80661134cd680fb';
+  getAll(req: CustomRequest, res: Response) {
+    const userId = req.user?._id;
 
-    ConversationModel.find({ participants: authUserId })
+    ConversationModel.find({ participants: userId })
       .populate('participants', 'fullName avatar lastSeen')
       .populate('lastMessage', 'user text audio attachments isRead isTyping createdAt')
       .exec((err, conversations) => {
@@ -25,11 +25,10 @@ class ConversationController {
       });
   }
 
-  getById(req: Request, res: Response) {
+  getById(req: CustomRequest, res: Response) {
     const { id } = req.params;
 
-    // TODO: take userId fro JWT Token
-    const userId: string = '611af638b80661134cd680fb';
+    const userId = req.user?._id;
 
     ConversationModel.findOne({ _id: id, participants: userId })
       .populate('participants', 'fullName avatar lastSeen')
@@ -46,7 +45,7 @@ class ConversationController {
       });
   }
 
-  create(req: Request, res: Response) {
+  create(req: CustomRequest, res: Response) {
     const { conversation }: { conversation: { name: string; participants: string[]; } } = req.body;
 
     if (!conversation || !conversation.participants?.length) {
@@ -54,11 +53,9 @@ class ConversationController {
     }
 
     const { name, participants } = conversation;
+    const userId = req.user?._id || '';
 
-    // TODO: take userId fro JWT Token
-    const meId = '611af638b80661134cd680fb';
-
-    const participantsArr: string[] = [meId, ...participants]
+    const participantsArr: string[] = [userId, ...participants];
 
     const uniqueId = getUniqueIdFromIds(participantsArr);
 
@@ -90,7 +87,7 @@ class ConversationController {
       });
   }
 
-  delete(req: Request, res: Response) {
+  delete(req: CustomRequest, res: Response) {
     const { id } = req.params;
 
     ConversationModel.findByIdAndRemove(id)

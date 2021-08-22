@@ -1,13 +1,14 @@
 import { Router } from 'express';
 
 import { UserController } from '../controllers';
+import { checkAuth, updateLastSeen } from '../middlewares';
 
 const UserRouter = Router();
 const UserCtrl = new UserController();
 
-UserRouter.get('/', UserCtrl.getAll);
-UserRouter.get('/:id', UserCtrl.getById);
-UserRouter.delete('/:id', UserCtrl.delete);
+UserRouter.get('/', checkAuth, updateLastSeen, UserCtrl.getAll);
+UserRouter.get('/:id', checkAuth, updateLastSeen, UserCtrl.getById);
+UserRouter.delete('/:id', checkAuth, updateLastSeen, UserCtrl.delete);
 UserRouter.post('/', UserCtrl.create);
 
 export default UserRouter;

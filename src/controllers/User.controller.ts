@@ -1,26 +1,30 @@
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 
+import { CustomRequest } from '../types/express';
 import { IUser } from '../types/user';
 import { UserModel } from '../models';
-import generateUserConfirmationToken from '../helpers/hash/userConfirmHash';
 import { parseCreatingUserErrors } from '../helpers/errors/parsErrors';
+import { createJWToken } from '../utils';
+import generateUserConfirmationToken from '../helpers/hash/userConfirmHash';
+import generateRefreshToken from '../helpers/hash/refreshToken';
 
 class UserController {
-  getAll(req: Request, res: Response) {
-    UserModel.find()
-      .then((users: IUser[] | null) => {
-        if (!users) {
-          return res.status(404).json({ error: { message: 'Users not found!' } });
-        }
+  async getAll(req: CustomRequest, res: Response) {
+    try {
+      const users = await UserModel.find();
 
-        res.status(200).json(users);
-      })
-      .catch(() => {
-        res.status(404).json({ error: { message: 'Something went wrong!' } });
-      });
+      if (!users) {
+        return res.status(404).json({ error: { message: 'Users not found!' } });
+      }
+
+      res.status(200).json(users);
+    } catch {
+      res.status(404).json({ error: { message: 'Something went wrong!' } });
+    }
   }
 
-  getById(req: Request, res: Response) {
+  getById(req: CustomRequest, res: Response) {
     const { id } = req.params;
 
     UserModel.findById(id)
@@ -36,37 +40,49 @@ class UserController {
       });
   }
 
-  create(req: Request, res: Response) {
-    const { user }: { user: Partial<IUser> } = req.body;
+  async create(req: Request, res: Response) {
+    const { email, fullName, avatar, password } = req.body.user || {};
 
-    if (!user) {
+    if (!(email && fullName && password)) {
       return res.status(400).json({ error: { message: 'Bad request!' } });
     }
 
-    const { email, fullName, avatar, password } = user;
+    const oldUser = await UserModel.findOne({ email });
+
+    if (oldUser) {
+      return res.status(409).json({ error: { message: 'User already exist!. Please Login!' } });
+    }
+
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new UserModel({
-      email,
+      email: email.toLowerCase(),
       fullName,
       avatar: avatar || '',
-      password,
+      password: encryptedPassword,
       confirmHash: generateUserConfirmationToken(),
     });
 
     newUser.save()
-      .then((value: IUser) => {
-        if (!value) {
-          return res.status(404).json({ error: { message: 'User not found!' } });
+      .then(async (createdUser) => {
+        if (!createdUser) {
+          res.status(404).json({ error: { message: 'Bad request!' } });
         }
+
+        const token = createJWToken(createdUser._id!);
+
+        await UserModel.updateOne({ _id: createdUser._id }, {
+          lastSeen: new Date().toISOString(),
+          tokens: { token, refreshToken: generateRefreshToken() },
+        });
 
         console.log('User created');
         res.status(201).json({
-          email: value.email,
-          fullName: value.fullName,
-          avatar: value.avatar,
-          lastSeen: value.lastSeen,
-          createdAt: value.createdAt,
-          updatedAt: value.updatedAt,
+          email: createdUser.email,
+          fullName: createdUser.fullName,
+          avatar: createdUser.avatar,
+          lastSeen: createdUser.lastSeen,
+          createdAt: createdUser.createdAt,
         });
       })
       .catch((e) => {
@@ -75,7 +91,7 @@ class UserController {
       });
   }
 
-  delete(req: Request, res: Response) {
+  delete(req: CustomRequest, res: Response) {
     const { id } = req.params;
 
     UserModel.findByIdAndRemove(id)

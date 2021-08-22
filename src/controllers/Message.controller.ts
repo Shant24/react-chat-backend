@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
+import { CustomRequest } from '../types/express';
 import { IMessage } from '../types/message';
 import { ConversationModel, MessageModel } from '../models';
 
 class MessageController {
-  async getAllById(req: Request, res: Response) {
+  async getAllById(req: CustomRequest, res: Response) {
     const { cId } = req.params;
 
     try {
@@ -20,7 +21,7 @@ class MessageController {
     }
   }
 
-  async getById(req: Request, res: Response) {
+  async getById(req: CustomRequest, res: Response) {
     const { id } = req.params;
 
     try {
@@ -36,20 +37,20 @@ class MessageController {
     }
   }
 
-  async create(req: Request, res: Response) {
+  async create(req: CustomRequest, res: Response) {
     const { message }: { message: IMessage } = req.body;
 
     if (!message) {
       return res.status(400).json({ error: { message: 'Bad request!' } });
     }
 
-    // TODO: take user id from JTW
-    const { cId, user: userId, text, audio, attachments, isTyping } = message;
+    const userId = req.user?._id;
+    const { cId, text, audio, attachments, isTyping } = message;
 
     try {
-      const existingConversation = await ConversationModel.findOne({ _id: cId, participants: userId });
+      const oldConversation = await ConversationModel.findOne({ _id: cId, participants: userId });
 
-      if (!existingConversation) {
+      if (!oldConversation) {
         return res.status(400)
           .json({ error: { message: 'You have not permission to send message in this conversation' } });
       }
@@ -76,7 +77,7 @@ class MessageController {
     }
   }
 
-  async delete(req: Request, res: Response) {
+  async delete(req: CustomRequest, res: Response) {
     const { id } = req.params;
 
     try {
@@ -91,7 +92,9 @@ class MessageController {
       await ConversationModel
         .updateOne(
           { _id: removedMessage.cId },
-          { lastMessage: findMessages.length ? findMessages[findMessages.length - 1]._id : undefined },
+          (findMessages.length
+            ? { lastMessage: findMessages[findMessages.length - 1]._id }
+            : { $unset: { lastMessage: undefined } }),
         );
 
       res.status(200).json({ message: `Message removed!` });

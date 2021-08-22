@@ -47,6 +47,23 @@ const UserSchema = new Schema(
       default: new Date().toISOString(),
       required: false,
     },
+
+    tokens: {
+      type: {
+        token: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+        refreshToken: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+      },
+      required: false,
+      default: undefined,
+    },
   },
   { timestamps: true },
 );
