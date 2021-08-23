@@ -31,7 +31,6 @@ const checkAuth = async (req: CustomRequest, res: Response, next: NextFunction) 
   } catch (error) {
     res.status(401).send({ error: { message: error.message } });
   }
-
 };
 
 export default checkAuth;
