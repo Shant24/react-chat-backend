@@ -10,4 +10,8 @@ export interface IUser extends Document<string> {
   lastSeen: string;
   createdAt: string;
   updatedAt: string;
+  tokens?: {
+    jwt: string;
+    refreshToken: string;
+  };
 }

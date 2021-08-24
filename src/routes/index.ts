@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 import UserRoutes from './User.routes';
 import ConversationRoutes from './Conversation.routes';
 import MessageRoutes from './Message.routes';
+import AuthRoutes from './Auth.routes';
 
 dotenv.config({ path: __dirname + '/../../.env' });
 
@@ -23,6 +24,7 @@ const routes = {
     app.use(`/user`, UserRoutes);
     app.use(`/conversation`, ConversationRoutes);
     app.use(`/message`, MessageRoutes);
+    app.use(`/auth`, AuthRoutes);
 
     app.get('/', async (req: Request, res: Response) => {
       const db = await fetchDB();

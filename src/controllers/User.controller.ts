@@ -70,19 +70,22 @@ class UserController {
         }
 
         const token = createJWToken(createdUser._id!);
+        const newRefreshToken = generateRefreshToken();
 
-        await UserModel.updateOne({ _id: createdUser._id }, {
+        await UserModel.findOneAndUpdate({ _id: createdUser._id }, {
           lastSeen: new Date().toISOString(),
-          tokens: { token, refreshToken: generateRefreshToken() },
+          tokens: { jwt: token, refreshToken: newRefreshToken },
         });
 
         console.log('User created');
         res.status(201).json({
+          _id: createdUser._id,
           email: createdUser.email,
           fullName: createdUser.fullName,
           avatar: createdUser.avatar,
           lastSeen: createdUser.lastSeen,
           createdAt: createdUser.createdAt,
+          tokens: { jwt: token, refreshToken: newRefreshToken },
         });
       })
       .catch((e) => {

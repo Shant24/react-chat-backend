@@ -18,14 +18,13 @@ const checkAuth = async (req: CustomRequest, res: Response, next: NextFunction) 
       throw new Error('Invalid auth token provided!');
     }
 
-    const user: IUser | null = await UserModel.findOne({ _id: jwtData.userId, 'tokens.token': token });
+    const user: IUser | null = await UserModel.findOne({ _id: jwtData.userId, 'tokens.jwt': token });
 
     if (!user) {
       throw new Error('Invalid auth token provided!');
     }
 
     req.user = user;
-    req.token = token;
 
     next();
   } catch (error) {

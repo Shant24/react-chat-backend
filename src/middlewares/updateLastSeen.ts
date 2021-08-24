@@ -6,7 +6,11 @@ import { UserModel } from '../models';
 export default async (req: CustomRequest, res: Response, next: NextFunction) => {
   const _id = req.user?._id;
 
-  await UserModel.updateOne({ _id }, { lastSeen: new Date().toISOString() });
-
-  next();
+  try {
+    await UserModel.updateOne({ _id }, { lastSeen: new Date().toISOString() });
+  } catch (err) {
+    console.log('err', err);
+  } finally {
+    next();
+  }
 }

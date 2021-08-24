@@ -50,7 +50,7 @@ const UserSchema = new Schema(
 
     tokens: {
       type: {
-        token: {
+        jwt: {
           type: String,
           trim: true,
           required: true,
