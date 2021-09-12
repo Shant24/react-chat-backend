@@ -73,6 +73,7 @@ class MessageController {
       res.status(201).json(savedMessage);
 
     } catch (error) {
+      // @ts-ignore
       res.status(400).json({ error: { message: error.message } });
     }
   }

@@ -28,6 +28,7 @@ const checkAuth = async (req: CustomRequest, res: Response, next: NextFunction) 
 
     next();
   } catch (error) {
+    // @ts-ignore
     res.status(401).send({ error: { message: error.message } });
   }
 };

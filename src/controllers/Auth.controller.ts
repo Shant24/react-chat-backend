@@ -51,6 +51,7 @@ class AuthController {
         },
       );
     } catch (err) {
+      // @ts-ignore
       res.status(400).json({ error: { message: err.message } });
     }
   }
