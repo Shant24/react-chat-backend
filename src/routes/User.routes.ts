@@ -9,6 +9,5 @@ const UserCtrl = new UserController();
 UserRouter.get('/', checkAuth, updateLastSeen, UserCtrl.getAll);
 UserRouter.get('/:id', checkAuth, updateLastSeen, UserCtrl.getById);
 UserRouter.delete('/:id', checkAuth, updateLastSeen, UserCtrl.delete);
-UserRouter.post('/', UserCtrl.create);
 
 export default UserRouter;
