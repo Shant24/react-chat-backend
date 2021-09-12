@@ -11,11 +11,9 @@ dotenv.config({ path: __dirname + '/../../.env' });
 
 const PORT = process.env.PORT || 8080;
 const HOST_URL = process.env.HOST_URL || '';
-const environment = process.env.NODE_ENV || 'development';
 
 const fetchDB = async () => {
-  const url: string = `${environment === 'development' ? `${HOST_URL}:${PORT}` : HOST_URL}/db.json`;
-  console.log('url', url);
+  const url: string = `${HOST_URL}:${PORT}/db.json`;
   const { data }: AxiosResponse = await axios.get(url);
   return data;
 };
@@ -33,7 +31,7 @@ const routes = {
       try {
         db = await fetchDB();
       } catch (err) {
-        console.log('err');
+        console.log('err', err);
       }
 
       res.json(db);
@@ -45,7 +43,7 @@ const routes = {
       try {
         db = await fetchDB();
       } catch (err) {
-        console.log('err');
+        console.log('err', err);
       }
 
       res.json(db.dialogues);
@@ -58,7 +56,7 @@ const routes = {
       try {
         db = await fetchDB();
       } catch (err) {
-        console.log('err');
+        console.log('err', err);
       }
 
       const dialoguesById = db.dialogues.filter((dialogue: any) => dialogue._id === id);
@@ -71,7 +69,7 @@ const routes = {
       try {
         db = await fetchDB();
       } catch (err) {
-        console.log('err');
+        console.log('err', err);
       }
 
       res.json(db.messages);
@@ -84,7 +82,7 @@ const routes = {
       try {
         db = await fetchDB();
       } catch (err) {
-        console.log('err');
+        console.log('err', err);
       }
 
       const messagesById = db.messages.filter((message: any) => message.roomId === id);
