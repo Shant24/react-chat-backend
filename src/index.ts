@@ -18,7 +18,7 @@ const environment = process.env.NODE_ENV || 'development';
 app.use(express.json());
 app.use(cors({ origin: '*', credentials: true }));
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 routes.init(app);
 

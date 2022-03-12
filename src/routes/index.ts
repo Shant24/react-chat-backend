@@ -6,6 +6,7 @@ import UserRoutes from './User.routes';
 import ConversationRoutes from './Conversation.routes';
 import MessageRoutes from './Message.routes';
 import AuthRoutes from './Auth.routes';
+import db from '../public/db';
 
 dotenv.config({ path: __dirname + '/../../.env' });
 
@@ -13,8 +14,9 @@ const PORT = process.env.PORT || 8080;
 const HOST_URL = process.env.HOST_URL || '';
 
 const fetchDB = async () => {
-  const url: string = `${HOST_URL}:${PORT}/db.json`;
-  const { data }: AxiosResponse = await axios.get(url);
+  // const url: string = `${HOST_URL}:${PORT}/db.json`;
+  // const { data }: AxiosResponse = await axios.get(url);
+  const data = db;
   return data;
 };
 
