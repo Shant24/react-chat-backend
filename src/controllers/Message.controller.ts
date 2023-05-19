@@ -50,7 +50,8 @@ class MessageController {
       const existingConversation = await ConversationModel.findOne({ _id: cId, participants: userId });
 
       if (!existingConversation) {
-        return res.status(400)
+        return res
+          .status(400)
           .json({ error: { message: 'You have not permission to send message in this conversation' } });
       }
 
@@ -62,16 +63,11 @@ class MessageController {
         return res.status(400).json({ error: { message: 'Something went wrong!' } });
       }
 
-      await ConversationModel.updateOne(
-        { _id: cId },
-        { lastMessage: savedMessage._id },
-        { runValidators: true },
-      );
+      await ConversationModel.updateOne({ _id: cId }, { lastMessage: savedMessage._id }, { runValidators: true });
 
       console.log('Message created');
       res.status(201).json(savedMessage);
-
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).json({ error: { message: error.message } });
     }
   }
@@ -88,11 +84,10 @@ class MessageController {
 
       const findMessages = await MessageModel.find({ cId: removedMessage.cId });
 
-      await ConversationModel
-        .updateOne(
-          { _id: removedMessage.cId },
-          { lastMessage: findMessages.length ? findMessages[findMessages.length - 1]._id : undefined },
-        );
+      await ConversationModel.updateOne(
+        { _id: removedMessage.cId },
+        { lastMessage: findMessages.length ? findMessages[findMessages.length - 1]._id : undefined },
+      );
 
       res.status(200).json({ message: `Message removed!` });
     } catch {
