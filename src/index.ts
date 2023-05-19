@@ -2,17 +2,24 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import logger from 'morgan';
-import dotenv from 'dotenv';
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config({
+  path: path.resolve(
+    __dirname,
+    '..',
+    require('fs').existsSync(`.env.${process.env.NODE_ENV}`) ? `.env.${process.env.NODE_ENV}` : '.env',
+  ),
+});
 
 import dbConnect from './config/db';
 import routes from './routes';
 
 const app = express();
-dotenv.config();
+
 dbConnect();
 
 const PORT = process.env.PORT || 7777;
-const HOST_URL = process.env.CURRENT_HOST_URL || '';
 const environment = process.env.NODE_ENV || 'development';
 
 app.use(express.json());
@@ -23,7 +30,6 @@ app.use(logger('dev'));
 routes.init(app);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
   console.log(`Environment: ${environment}`);
-  console.log(`Link: ${HOST_URL}:${PORT}`);
+  console.log(`Server is running on port ${PORT}. `, `http://localhost:${PORT}`);
 });

@@ -1,13 +1,10 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 
-dotenv.config();
-
-const MONGO_URI = process.env.MONGO_URI || '';
+const MONGO_URL = process.env.MONGO_URL || '';
 
 const dbConnect = () => {
   mongoose
-    .connect(MONGO_URI, {
+    .connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
